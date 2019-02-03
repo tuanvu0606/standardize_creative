@@ -10,6 +10,7 @@ def css_scraping(html_file,css_file):
   scraped_css_text = ""
   print ("start scraping style element...")
   print (html_file)
+
   style_tag = soup.find_all("style")
   print (style_tag[0].string)
   print (len(style_tag[0].string))
@@ -20,7 +21,8 @@ def css_scraping(html_file,css_file):
       if (len(style.string) > 91):
           print("The style_tag string length is greater than 91...")
           print("Send it to external css file and delete the current one inside html file")
-          scraped_css_text = scraped_css_text + " " + style.string
+          scraped_css_text = scraped_css_text + "\n" + style.string
+          style.string.replace_with("")          
       else:
           print("The style_tag string length is less than or equals 91...")
           print("keep it inside html_file")
@@ -29,8 +31,15 @@ def css_scraping(html_file,css_file):
       f= open("style.css","w+")
       f.write(scraped_css_text)
       f.close() 
+  f= open(html_file,"w+")
+  f.write(str(soup.prettify()))
+  f.close()
+
+
 stylesheet_path = str(os.getcwd()) + "/css"
 html_file = str(os.getcwd()) + "/index.html"
+
+
 
 # if os.path.isdir(stylesheet_path) == True:
 #     print("found")  
@@ -110,5 +119,4 @@ else:
         else:
             print("The css file does not exist, this file is corrupted")
             css_scraping(html_file,"style.css")
-
 

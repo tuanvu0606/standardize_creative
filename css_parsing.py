@@ -31,43 +31,18 @@ def css_scraping(html_file,css_file):
       f= open("style.css","w+")
       f.write(scraped_css_text)
       f.close() 
+  
   f= open(html_file,"w+")
   f.write(str(soup.prettify()))
   f.close()
 
+def open_and_write_to_html_file(html_file,written_object):
+    f= open(html_file,"w+")
+    f.write(written_object)
+    f.close()
 
 stylesheet_path = str(os.getcwd()) + "/css"
 html_file = str(os.getcwd()) + "/index.html"
-
-
-
-# if os.path.isdir(stylesheet_path) == True:
-#     print("found")  
-# else:
-#     print("not found")
-#     try:
-#         os.makedirs(stylesheet_path) 
-#     except OSError:  
-#         print ("Creation of the directory %s failed" % stylesheet_path)
-#     else:  
-#         print ("Successfully created the directory %s" % stylesheet_path)
-
- 
-# # load the file
-# with open(html_file) as inf:
-#     txt = inf.read()
-#     soup = bs4.BeautifulSoup(txt)
-# # create new link
-# new_link = soup.new_tag("link", rel="icon", type="image/png", href="img/tor.png")
-# # insert it into the document
-# soup.head.append(new_link)
- 
-# # save the file again
-# with open(html_file, "w") as outf:
-#     outf.write(str(soup))
-
-
-# print (glob.glob('*.py'))
 
 html = open(html_file).read()
 soup = BeautifulSoup(html, features="html.parser")
@@ -114,8 +89,10 @@ else:
             print("moving .css file to current folder...")
             shutil.move(os.getcwd() + "/" + str(stylesheet[0].get('href')), os.getcwd())
             print("now modify index.html file to use new css file...")        
-            stylesheet[0]['href'] = "style.css"
+            new_stylesheet_location = str(stylesheet[0]['href'][stylesheet[0]['href'].index("/") + len("/"):])
+            stylesheet[0]['href'] = new_stylesheet_location             
             print (stylesheet)
+            open_and_write_to_html_file(html_file,str(soup.prettify()))          
         else:
             print("The css file does not exist, this file is corrupted")
             css_scraping(html_file,"style.css")

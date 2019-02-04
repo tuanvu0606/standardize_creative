@@ -28,6 +28,7 @@ def JS_scraping(html_file):
               script['src']="YS" + str(i) + ".js"
               script.string.replace_with("")     
               print("done removing")
+              i = i + 1
         else:
             print("The style_tag string length is less than or equals 91...")
             print("keep it inside html_file")
@@ -66,3 +67,8 @@ for script in script_tag_with_src:
 			open_and_write_to_html_file(html_file,str(soup.prettify()))
 	else:
 		print ("JS script source is on the Internet, leave it")
+
+script_tag_without_src = soup.find_all("script",{"src":False})        
+
+for script in script_tag_without_src:
+    JS_scraping(html_file)

@@ -56,7 +56,7 @@ def add_repo_to_style_tag():
     print (str(style.get('href')).__contains__('http'))
     if str(style.get('href')).__contains__('http') == False:
         print("Change the css source file to repo")
-        repo = str(data["repo"]) + "/" + str(data["campaign"][0]["name"]) + "-" + str(data[width]) + "x" + str(data[height]) + "/" + str(data[DSP]) + str(data["build"])
+        repo = str(data["repo"]) + "/" + str(data["campaign"][0]["name"]) + "-" + str(data["width"]) + "x" + str(data["height"]) + "/" + str(data["DSP"]) + str(data["build"])
         print("repo: " + repo)
         print(""""style["href"]: """ + style["href"])
         style['href'] = (repo + "/" + style['href'] )

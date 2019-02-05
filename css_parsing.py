@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 import shutil
 import fnmatch
 from glob import glob
-# print(os.path.isdir("/home/el"))
-# print(os.path.exists("/home/el/myfile.txt"))
+import json
+from pprint import pprint
 
 def css_scraping(html_file,css_file):
   scraped_css_text = ""
@@ -32,6 +32,8 @@ def css_scraping(html_file,css_file):
       f.write(scraped_css_text)
       f.close() 
   
+
+
   f= open(html_file,"w+")
   f.write(str(soup.prettify()))
   f.close()
@@ -40,6 +42,21 @@ def open_and_write_to_html_file(html_file,written_object):
     f= open(html_file,"w+")
     f.write(written_object)
     f.close()
+
+def add_repo_to_style_tag(style):
+  with open('config.json') as f:
+    data = json.load(f)
+  pprint(data)
+
+  print(style)
+
+  repo = str(data["repo"]) + "/" + str(data["campaign"][0]["name"]) + "/" + str(data["build"])
+
+  print("repo: " + repo)
+  print(""""style["href"]: """ + style["href"])
+  style['href'] = (repo + "/" + style['href'] )
+  print(style['href'])
+
 
 stylesheet_path = str(os.getcwd()) + "/css"
 html_file = str(os.getcwd()) + "/index.html"
@@ -63,13 +80,14 @@ if not stylesheet:
 
     # print(soup.prettify())
 
-    f= open(html_file,"w+")
-    f.write(str(soup.prettify()))
-    f.close()
-
     css_scraping(html_file,"style.css")
     # with open(html_file, "w") as file:
     #     file.write(str(soup))
+    add_repo_to_style_tag(new_stylesheet_link)
+
+    f= open(html_file,"w+")
+    f.write(str(soup.prettify()))
+    f.close()
 
 else:
     print("stylesheet link exist")
@@ -83,6 +101,7 @@ else:
     if str(stylesheet[0].get('href')).__contains__('/') == False:
         print(".css file is in current folder")
         css_scraping(html_file,"style.css")
+        add_repo_to_style_tag(stylesheet[0])
     else:
         if os.path.isfile(os.getcwd() + "/" + str(stylesheet[0].get('href'))) == True:
             print("stylesheet link is found with css file in" + os.getcwd() + "/" + str(stylesheet[0].get('href')))  

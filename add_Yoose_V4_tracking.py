@@ -12,7 +12,7 @@ soup = BeautifulSoup(html, features="html.parser")
 V4_script_link = soup.new_tag('script', type="text/javascript", src="https://s3-ap-southeast-1.amazonaws.com/tuan.vu.yoose/Yoose_creative_scripts/Yoose_V4_tracking.js")
 
 print (V4_script_link)
-soup.body.insert(2, V4_script_link)
+soup.body.insert(0, V4_script_link)
 
 #Add variable to fill
 V4_script_variable = soup.new_tag('script', type="text/javascript")

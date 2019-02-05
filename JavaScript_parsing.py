@@ -14,9 +14,6 @@ def JS_scraping(html_file,script,i):
       data = json.load(f)
 
     creative_name = str(data["campaign"][0]["name"]) + "-" + str(data["DSP"]) + "-" + str(data["width"]) + "x" + str(data["height"]) 
-    # script_tag = soup.find_all("script")
-
-
 
     print (len("https://s3-ap-southeast-1.amazonaws.com/tuan.vu.yoose/The_Coffee_House/199/v4_tracking.jsas"))
     print("Checking if style_tag string length is greater than 91...")
@@ -79,7 +76,7 @@ j = 0
 for script in script_tag_with_src:
   print(script["src"])
   if script["src"].find("http") == -1:    
-    JS_scraping(html_file,script,j)      
+    add_repo_to_script_tag(script)   
     # add_repo_to_script_tag(script)
     j = j + 1
   else:

@@ -21,7 +21,7 @@ def JS_scraping(html_file,script,i):
     if (len(script.string) > 91):
         print("The style_tag string length is greater than 91...")
         print("Send it to external css file and delete the current one inside html file")                  
-        script_tag_name = creative_name + "-" + "YS" + str(i) + ".js" 
+        script_tag_name = "YS" + str(i) + ".js" 
         f= open(script_tag_name,"w+")
         f.write(script.string)
         f.close()
@@ -48,7 +48,7 @@ def add_repo_to_script_tag(script):
 
   print(script)
 
-  repo = str(data["repo"]) + "/" + str(data["campaign"][0]["name"]) + "-" + str(data[width]) + "x" + str(data[height]) "/" + str(data["build"])
+  repo = str(data["repo"]) + "/" + str(data["campaign"][0]["name"]) + "-" + str(data[width]) + "x" + str(data[height]) "/" + str(data[DSP]) + str(data["build"])
 
   print("repo: " + repo)
 

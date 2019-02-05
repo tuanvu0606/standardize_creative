@@ -50,12 +50,12 @@ def add_repo_to_script_tag(script):
 
   repo = str(data["repo"]) + "/" + str(data["campaign"][0]["name"]) + "/" + str(data["build"])
 
-  print(repo)
+  print("repo: " + repo)
 
-  print(script['src'])
-  script['src'] = repo + "/" + script['src'] 
+  print(""""script["src"]: """ + script["src"])
+  script['src'] = (repo + "/" + script["src"] )
 
-  print(script['src'])
+  print(script["src"])
 
 
 stylesheet_path = str(os.getcwd()) + "/css"
@@ -72,13 +72,13 @@ script_tag_with_src = soup.find_all("script",{"src":True})
 
 j = 0
 
+
+
 for script in script_tag_with_src:
   print(script["src"])
   if script["src"].find("http") == -1:
     if script["src"].find("/") == -1:
-      print ("JS script source is in current folder, leave it")
-      JS_scraping(html_file,script,j)
-      j = j + 1
+      print ("JS script source is in current folder, leave it")      
     else:
       print ("JS script source is in local folders as found in: " + script["src"] + ", bring it to the workspace, destroy the folder")
       shutil.move(os.getcwd() + "/" + script["src"], os.getcwd())
@@ -86,7 +86,9 @@ for script in script_tag_with_src:
       print (script["src"][script["src"].index("/") + len("/"):])
       script["src"] = (script["src"][script["src"].index("/") + len("/"):])
       open_and_write_to_html_file(html_file,str(soup.prettify()))
+    JS_scraping(html_file,script,j)      
     add_repo_to_script_tag(script)
+    j = j + 1
   else:
     print ("JS script source is on the Internet, leave it")
 
@@ -94,7 +96,10 @@ script_tag_without_src = soup.find_all("script",{"src":False})
 
 i = 0
 
-for script in script_tag_without_src:    
-    JS_scraping(html_file,script,i)
-    i = i + 1
-    add_repo_to_script_tag(script)
+if script_tag_without_src:
+  for script in script_tag_without_src:    
+      JS_scraping(html_file,script,i)
+      i = i + 1
+      add_repo_to_script_tag(script)
+else:
+  print("no script")

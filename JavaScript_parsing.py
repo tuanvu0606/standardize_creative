@@ -48,7 +48,7 @@ def add_repo_to_script_tag(script):
 
   print(script)
 
-  repo = str(data["repo"]) + "/" + str(data["campaign"][0]["name"]) + "-" + str(data["width"]) + "x" + str(data["height"]) "/" + str(data["DSP"]) + str(data["build"])
+  repo = str(data["repo"]) + "/" + str(data["campaign"][0]["name"]) + "-" + str(data["width"]) + "x" + str(data["height"]) + "/" + str(data["DSP"]) + str(data["build"])
 
   print("repo: " + repo)
 

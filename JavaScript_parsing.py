@@ -18,7 +18,7 @@ def JS_scraping(html_file,script,i):
 
 
 
-    print (len("https://s3-ap-southeast-1.amazonaws.com/tuan.vu.yoose/The_Coffee_House/199/v4_tracking.js"))
+    print (len("https://s3-ap-southeast-1.amazonaws.com/tuan.vu.yoose/The_Coffee_House/199/v4_tracking.jsas"))
     print("Checking if style_tag string length is greater than 91...")
     print (script)
     if (len(script.string) > 91):
@@ -31,6 +31,7 @@ def JS_scraping(html_file,script,i):
         script['src']=script_tag_name
         script.string.replace_with("")     
         print("done removing")
+        add_repo_to_script_tag(script)
     else:
         print("The style_tag string length is less than or equals 91...")
         print("keep it inside html_file")
@@ -47,6 +48,8 @@ def add_repo_to_script_tag(script):
   with open('config.json') as f:
     data = json.load(f)
   pprint(data)
+
+  print(script)
 
   repo = str(data["repo"]) + "/" + str(data["campaign"][0]["name"]) + "/" + str(data["build"])
 
@@ -70,24 +73,14 @@ script_tag_with_src = soup.find_all("script",{"src":True})
 
 # print(script["src"])
 
+print(script_tag_with_src)
+
 j = 0
-
-
-
 for script in script_tag_with_src:
   print(script["src"])
-  if script["src"].find("http") == -1:
-    if script["src"].find("/") == -1:
-      print ("JS script source is in current folder, leave it")      
-    else:
-      print ("JS script source is in local folders as found in: " + script["src"] + ", bring it to the workspace, destroy the folder")
-      shutil.move(os.getcwd() + "/" + script["src"], os.getcwd())
-      print ("now modify the html file to use new .js file in workspace")
-      print (script["src"][script["src"].index("/") + len("/"):])
-      script["src"] = (script["src"][script["src"].index("/") + len("/"):])
-      open_and_write_to_html_file(html_file,str(soup.prettify()))
+  if script["src"].find("http") == -1:    
     JS_scraping(html_file,script,j)      
-    add_repo_to_script_tag(script)
+    # add_repo_to_script_tag(script)
     j = j + 1
   else:
     print ("JS script source is on the Internet, leave it")
@@ -96,10 +89,12 @@ script_tag_without_src = soup.find_all("script",{"src":False})
 
 i = 0
 
+print(script_tag_without_src)
+
 if script_tag_without_src:
   for script in script_tag_without_src:    
       JS_scraping(html_file,script,i)
-      i = i + 1
-      add_repo_to_script_tag(script)
+      
+      i = i + 1      
 else:
   print("no script")

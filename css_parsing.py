@@ -43,20 +43,31 @@ def open_and_write_to_html_file(html_file,written_object):
     f.write(written_object)
     f.close()
 
-def add_repo_to_style_tag(style):
+def add_repo_to_style_tag():
+  print ("begin adding repo to css link")
+
+  stylesheet = soup.find_all(rel="stylesheet")
   with open('config.json') as f:
-    data = json.load(f)
+      data = json.load(f)
   pprint(data)
+  
+  for style in stylesheet:
+    print(style)
+    print (str(style.get('href')).__contains__('http'))
+    if str(style.get('href')).__contains__('http') == False:
+        print("Change the css source file to repo")
+        repo = str(data["repo"]) + "/" + str(data["campaign"][0]["name"]) + "/" + str(data["build"])
+        print("repo: " + repo)
+        print(""""style["href"]: """ + style["href"])
+        style['href'] = (repo + "/" + style['href'] )
+        print(style['href'])
+    else:
+        print (str(style.get('href')))
+        print("style is in the Internet, leave it")
 
-  print(style)
-
-  repo = str(data["repo"]) + "/" + str(data["campaign"][0]["name"]) + "/" + str(data["build"])
-
-  print("repo: " + repo)
-  print(""""style["href"]: """ + style["href"])
-  style['href'] = (repo + "/" + style['href'] )
-  print(style['href'])
-
+  f= open(html_file,"w+")
+  f.write(str(soup.prettify()))
+  f.close()
 
 stylesheet_path = str(os.getcwd()) + "/css"
 html_file = str(os.getcwd()) + "/index.html"
@@ -81,9 +92,8 @@ if not stylesheet:
     # print(soup.prettify())
 
     css_scraping(html_file,"style.css")
-    # with open(html_file, "w") as file:
-    #     file.write(str(soup))
-    add_repo_to_style_tag(new_stylesheet_link)
+
+    print (soup)
 
     f= open(html_file,"w+")
     f.write(str(soup.prettify()))
@@ -91,17 +101,15 @@ if not stylesheet:
 
 else:
     print("stylesheet link exist")
-    # print (stylesheet[0].get('href'))
-    # shutil.move(os.getcwd()str(stylesheet[0].get('href'), os.getcwd())
     print(os.getcwd() + "/" + str(stylesheet[0].get('href')))
     print("checking if stylesheet .css file is in subfolder...")
+
+    css_scraping(html_file,"style.css")
 
     print (str(stylesheet[0].get('href')).__contains__('/'))
 
     if str(stylesheet[0].get('href')).__contains__('/') == False:
-        print(".css file is in current folder")
-        css_scraping(html_file,"style.css")
-        add_repo_to_style_tag(stylesheet[0])
+        print(".css file is in current folder")        
     else:
         if os.path.isfile(os.getcwd() + "/" + str(stylesheet[0].get('href'))) == True:
             print("stylesheet link is found with css file in" + os.getcwd() + "/" + str(stylesheet[0].get('href')))  
@@ -116,3 +124,4 @@ else:
             print("The css file does not exist, this file is corrupted")
             css_scraping(html_file,"style.css")
 
+add_repo_to_style_tag()

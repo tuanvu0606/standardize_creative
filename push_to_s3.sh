@@ -26,7 +26,9 @@ echo s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build}
 
 # eval $(~/.local/bin/aws s3 cp $WORKSPACE s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build} --recursive --exclude "*" --exclude "*.sh" --acl public-read)
 
-~/.local/bin/aws s3 cp $WORKSPACE s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build} --recursive --exclude "*" --include "*.html" --include "*.js" --include "*.css" --include "*.png" --acl public-read
+# ~/.local/bin/aws s3 cp $WORKSPACE s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build} --recursive --exclude "*" --include "*.html" --include "*.js" --include "*.css" --include "*.png" --acl public-read
+
+ ~/.local/bin/aws s3 cp $WORKSPACE s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build} --recursive --exclude "*.sh" --exclude "*.py" --include "*" --acl public-read
 
 echo $WORKSPACE
 

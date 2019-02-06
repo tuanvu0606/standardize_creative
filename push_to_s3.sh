@@ -1,13 +1,20 @@
 #!/bin/sh
 
-campaign=$(jq '.campaign[0].name' config.json)
-width=$(jq '.width' config.json)
-height=$(jq '.height' config.json)
-DSP=$(jq '.DSP' config.json)
+campaign=$(jq '.campaign[0].name' config.json) 
+width=$(jq '.width' config.json) 
+height=$(jq '.height' config.json) 
+DSP=$(jq '.DSP' config.json) 
+
+campaign=$(echo $campaign | tr -d '"')
+width=$(echo $width | tr -d '"')
+height=$(echo $height | tr -d '"')
+DSP=$(echo $DSP | tr -d '"')
+
 echo $campaign
 echo $width
 echo $height
 echo $DSP
+
 
 echo /var/lib/jenkins/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/archive
 

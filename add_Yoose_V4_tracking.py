@@ -18,8 +18,8 @@ soup.body.insert(0, V4_script_link)
 V4_script_variable = soup.new_tag('script', type="text/javascript")
 
 changing_variable = """
-  var lats = []
-  var lngs = []
+  var lats = [48.2109543,48.2019433,48.2025328]
+  var lngs = [16.3767531,16.3698786,16.3620117]
 
   var nearest = 2000
 
@@ -33,6 +33,28 @@ changing_variable = """
   var destination_url = "";
   var latitude_1 = parseFloat("");
   var longitude_1 = parseFloat(""); 
+
+  var store_lat =0;
+  var store_lng =0;
+  var nearest = 0;
+  var dist =0;
+  var destination_location = "";
+  var destination_url = "";
+
+
+  function trackClick(){
+  createImgEl(click_client);
+  createImgEl(click_v4);
+  createImgEl(platform_macro);
+  window.open(destination_url);
+  }
+  function createImgEl(src) {
+  var img = new Image(1,1);
+  img.style.display = 'none';
+  img.src = src;
+  document.body.appendChild(img);
+  }
+  var m_u = "https://api.v4.yoose.com/";
   """
 
 V4_script_variable.append(changing_variable)

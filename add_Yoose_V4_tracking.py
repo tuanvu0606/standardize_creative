@@ -21,6 +21,8 @@ changing_variable = """
   var lats = []
   var lngs = []
 
+  var nearest = 2000
+
   var imp_v4 = "";
   var click_v4 = "";
 

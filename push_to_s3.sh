@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 campaign=$(jq '.campaign[0].name' config.json) 
 width=$(jq '.width' config.json) 
@@ -26,7 +26,7 @@ echo s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build}
 
 # eval $(~/.local/bin/aws s3 cp $WORKSPACE s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build} --recursive --exclude "*" --exclude "*.sh" --acl public-read)
 
-~/.local/bin/aws s3 cp $WORKSPACE s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build} --recursive --exclude "*" --exclude "*.sh" --acl public-read
+~/.local/bin/aws s3 cp $WORKSPACE s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build} --recursive --exclude "*" --include "*.html" --include "*.js" --include "*.css" --include "*.png" --acl public-read
 
 echo $WORKSPACE
 

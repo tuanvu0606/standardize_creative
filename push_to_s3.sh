@@ -26,3 +26,5 @@ echo s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build}
 
 ~/.local/bin/aws s3 cp $WORKSPACE s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build} --recursive --exclude "*" --exclude "*.sh" --acl public-read
 
+echo $WORKSPACE
+

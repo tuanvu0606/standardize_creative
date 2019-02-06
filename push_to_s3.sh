@@ -18,9 +18,9 @@ echo $height
 echo $DSP
 echo $build
 
-echo $WORKSPACE
+ls $WORKSPACE
 
-ls -la /var/lib/jenkins/jobs/${JOB_NAME}/builds/${build}/archive
+# ls -la /var/lib/jenkins/jobs/${JOB_NAME}/builds/${build}/archive
 
 echo s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build}
 

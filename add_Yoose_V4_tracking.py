@@ -20,7 +20,7 @@ V4_script_variable = soup.new_tag('script', type="text/javascript")
 changing_variable = """
   var lats = []
   var lngs = []
-  
+
   var imp_v4 = "";
   var click_v4 = "";
 
@@ -35,7 +35,7 @@ changing_variable = """
 
 V4_script_variable.append(changing_variable)
 print (V4_script_link)
-soup.body.insert(2, V4_script_variable)
+soup.body.insert(0, V4_script_variable)
 
 print(soup)
 

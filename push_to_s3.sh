@@ -18,7 +18,7 @@ echo $height
 echo $DSP
 echo $build
 
-echo /var/lib/jenkins/jobs/${JOB_NAME}/builds/${build}/archive
+echo $WORKSPACE
 
 ls -la /var/lib/jenkins/jobs/${JOB_NAME}/builds/${build}/archive
 

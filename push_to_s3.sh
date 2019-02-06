@@ -24,5 +24,5 @@ ls $WORKSPACE
 
 echo s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build}
 
-# ~/.local/bin/aws s3 cp /var/lib/jenkins/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/archive s3://tuan.vu.yoose/Campaigns/${params.CAMPAIGN}/${BUILD_NUMBER} --recursive --exclude "*" --include "*.html" --include "*.js" --include "*.css" --acl public-read
+~/.local/bin/aws s3 cp $WORKSPACE s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build} --recursive --exclude "*" --exclude "*.sh" --acl public-read
 

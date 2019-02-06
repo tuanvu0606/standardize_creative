@@ -26,5 +26,7 @@ echo s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build}
 
 eval $(~/.local/bin/aws s3 cp $WORKSPACE s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build} --recursive --exclude "*" --exclude "*.sh" --acl public-read)
 
+echo $(~/.local/bin/aws s3 cp $WORKSPACE s3://tuan.vu.yoose/Campaigns/$campaign-${width}x$height/$DSP/${build} --recursive --exclude "*" --exclude "*.sh" --acl public-read)
+
 echo $WORKSPACE
 

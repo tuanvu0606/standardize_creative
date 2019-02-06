@@ -11,7 +11,7 @@ echo $DSP
 
 echo /var/lib/jenkins/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/archive
 
-echo s3://tuan.vu.yoose/Campaigns/${params.CAMPAIGN}/${BUILD_NUMBER}
+echo s3://tuan.vu.yoose/Campaigns/$campaign/${BUILD_NUMBER}
 
 # ~/.local/bin/aws s3 cp /var/lib/jenkins/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/archive s3://tuan.vu.yoose/Campaigns/${params.CAMPAIGN}/${BUILD_NUMBER} --recursive --exclude "*" --include "*.html" --include "*.js" --include "*.css" --acl public-read
 
